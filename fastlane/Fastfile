@@ -1,0 +1,46 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+before_all do
+  # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+end
+
+#Test Lanes
+desc "Runs tests and builds example for the given environment"
+desc "####Options"
+desc " * **`configuration`**: The build configuration to use. (`AF_CONFIGURATION`)"
+desc ""
+lane :ci_commit do |options|
+  if options[:configuration]
+    configuration = options[:configuration]
+  elsif ENV["BK_CONFIGURATION"]
+    configuration = ENV["BK_CONFIGURATION"]
+  else
+    configuration = "Release"
+  end
+  echo "测试用例"
+end
+
+
+
+after_all do |lane|
+  # This block is called, only if the executed lane was successful
+  
+  # slack(
+  #   message: "Successfully deployed new App Update."
+  # )
+end
+
+error do |lane, exception|
+  # slack(
+  #   message: exception.message,
+  #   success: false
+  # )
+end
