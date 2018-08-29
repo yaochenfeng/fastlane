@@ -25,7 +25,7 @@ lane :ci_commit do |options|
   else
     configuration = "Release"
   end
-  echo "测试用例"
+  sh("echo ci_commit")
 end
 
 
