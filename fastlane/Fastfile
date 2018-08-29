@@ -25,7 +25,7 @@ lane :ci_commit do |options|
   else
     configuration = "Release"
   end
-  sh("echo ci_commit")
+  sh("printenv")
 end
 
 
