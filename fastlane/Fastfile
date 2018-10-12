@@ -15,7 +15,7 @@ end
 #Test Lanes
 desc "Runs tests and builds example for the given environment"
 desc "####Options"
-desc " * **`configuration`**: The build configuration to use. (`AF_CONFIGURATION`)"
+desc " * **`configuration`**: The build configuration to use. (`BK_CONFIGURATION`)"
 desc ""
 lane :ci_commit do |options|
   if options[:configuration]
@@ -25,7 +25,15 @@ lane :ci_commit do |options|
   else
     configuration = "Release"
   end
-  sh("printenv")
+  
+  if options[:scheme]
+    appscheme = options[:scheme]
+  elsif ENV["BK_SCHEME"]
+    appscheme = ENV["BK_SCHEME"]
+  else
+    # appscheme = "BKApp"
+  end
+  run_tests(scheme: appscheme)
 end
 
 
