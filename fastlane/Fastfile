@@ -8,9 +8,6 @@
 
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
-before_all do
-  # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-end
 
 #Test Lanes
 desc "Runs tests and builds example for the given environment"
@@ -36,19 +33,21 @@ lane :ci_commit do |options|
   run_tests(scheme: appscheme)
 end
 
-
-
-after_all do |lane|
-  # This block is called, only if the executed lane was successful
+lane :bk_build_app do |options|
+  if options[:configuration]
+    configuration = options[:configuration]
+  elsif ENV["BK_CONFIGURATION"]
+    configuration = ENV["BK_CONFIGURATION"]
+  else
+    configuration = "Release"
+  end
   
-  # slack(
-  #   message: "Successfully deployed new App Update."
-  # )
-end
-
-error do |lane, exception|
-  # slack(
-  #   message: exception.message,
-  #   success: false
-  # )
+  if options[:scheme]
+    appscheme = options[:scheme]
+  elsif ENV["BK_SCHEME"]
+    appscheme = ENV["BK_SCHEME"]
+  else
+    # appscheme = "BKApp"
+  end
+  build_app(scheme: appscheme)
 end
