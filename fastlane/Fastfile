@@ -41,6 +41,13 @@ lane :bk_build_app do |options|
   else
     configuration = "Release"
   end
+  if options[:type]
+    appstype = options[:type]
+  elsif ENV["BK_TYPE"]
+    appstype = ENV["BK_TYPE"]
+  else
+    appstype = "app-store"
+  end
   
   if options[:scheme]
     appscheme = options[:scheme]
@@ -49,5 +56,5 @@ lane :bk_build_app do |options|
   else
     # appscheme = "BKApp"
   end
-  build_app(scheme: appscheme)
+  build_app(scheme: appscheme,export_method:appstype)
 end
