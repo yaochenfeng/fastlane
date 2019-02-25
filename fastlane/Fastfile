@@ -33,6 +33,9 @@ lane :ci_commit do |options|
   else
     # appscheme = "BKApp"
   end
+  if ENV["BK_CARTHAGE"]
+    carthage
+  end
   run_tests(scheme: appscheme)
 end
 
