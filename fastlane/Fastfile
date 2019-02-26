@@ -34,7 +34,7 @@ lane :ci_commit do |options|
     # appscheme = "BKApp"
   end
   if ENV["BK_CARTHAGE"]
-    carthage
+    carthage(use_binaries: false)
   end
   run_tests(scheme: appscheme)
 end
