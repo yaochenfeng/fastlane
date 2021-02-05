@@ -39,10 +39,10 @@ lane :ci_commit do |options|
   run_tests(scheme: appscheme)
 end
 
-desc "prepare_framework_release "
+desc "framework_release_candidate "
 desc "####Options"
 desc " * **`version`** (required): The new version of the framework"
-lane :prepare_framework_release do |options|
+lane :framework_release_candidate do |options|
     if !options[:version]
         raise "No version specified!".red
     end
