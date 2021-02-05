@@ -65,6 +65,19 @@ lane :prepare_framework_release do |options|
     pod_lib_lint(allow_warnings: true)
 end
 
+desc "framework_release "
+desc "####Options"
+desc " * **`version`** (required): The new version of the framework"
+lane :framework_release do |options|
+    if options[:tag_name]
+        tag_name = options[:tag_name]
+    elsif ENV["CI_COMMIT_TAG"]
+        tag_name = ENV['CI_COMMIT_TAG']
+    else
+        raise "provided your tag.!".red
+    end
+end
+
 after_all do |lane|
   # This block is called, only if the executed lane was successful
   
