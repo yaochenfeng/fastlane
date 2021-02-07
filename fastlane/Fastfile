@@ -76,6 +76,8 @@ lane :framework_release do |options|
     else
         raise "provided your tag.!".red
     end
+    pod_lib_lint(allow_warnings: true)
+    pod_push
 end
 
 after_all do |lane|
