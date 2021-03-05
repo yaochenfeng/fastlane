@@ -76,6 +76,9 @@ lane :framework_release do |options|
     else
         raise "provided your tag.!".red
     end
+    version_bump_podspec(
+      version_number: tag_name
+    )
     pod_lib_lint(allow_warnings: true)
     pod_push(allow_warnings: true)
 end
